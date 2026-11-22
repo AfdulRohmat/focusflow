@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FocusFlow — Pomodoro & Productivity Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-inner">
+        <span class="logo-icon">⏱</span>
+        <h1 class="app-title">FocusFlow</h1>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+      <!-- Timer Card -->
+      <section class="timer-card">
+        <!-- Mode Selector -->
+        <div class="mode-selector" role="tablist" aria-label="Timer mode">
+          <button
+            class="mode-btn active"
+            role="tab"
+            aria-selected="true"
+            data-mode="focus"
+            data-time="25:00"
+          >
+            Focus
+          </button>
+          <button
+            class="mode-btn"
+            role="tab"
+            aria-selected="false"
+            data-mode="short-break"
+            data-time="05:00"
+          >
+            Short Break
+          </button>
+          <button
+            class="mode-btn"
+            role="tab"
+            aria-selected="false"
+            data-mode="long-break"
+            data-time="15:00"
+          >
+            Long Break
+          </button>
+        </div>
+
+        <!-- Timer Display -->
+        <div class="timer-display" aria-live="polite" aria-label="Time remaining">
+          <span class="timer-time" id="timer-display">25:00</span>
+        </div>
+
+        <!-- Controls -->
+        <div class="timer-controls">
+          <button class="ctrl-btn" id="btn-start" aria-label="Start timer">
+            Start
+          </button>
+          <button class="ctrl-btn ctrl-btn--secondary" id="btn-pause" aria-label="Pause timer" disabled>
+            Pause
+          </button>
+          <button class="ctrl-btn ctrl-btn--ghost" id="btn-reset" aria-label="Reset timer">
+            Reset
+          </button>
+        </div>
+      </section>
+
+      <!-- Productivity Stats -->
+      <section class="stats-section" aria-label="Your productivity">
+        <h2 class="stats-title">Your Productivity</h2>
+        <div class="stats-grid">
+          <!-- Completed Sessions -->
+          <div class="stat-card">
+            <span class="stat-value" id="stat-sessions">0</span>
+            <span class="stat-label">Completed Sessions</span>
+          </div>
+          <!-- Total Focus Time -->
+          <div class="stat-card">
+            <span class="stat-value" id="stat-minutes">0</span>
+            <span class="stat-label">Focus Minutes</span>
+          </div>
+          <!-- Daily Goal -->
+          <div class="stat-card stat-card--goal">
+            <div class="stat-goal-header">
+              <span class="stat-label">Daily Goal</span>
+              <span class="stat-goal-count" id="stat-goal-count">0 / 4 sessions</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="stat-progress-bar">
+              <div class="progress-fill" id="stat-progress-fill"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Session Complete Notification (hidden by default) -->
+    <div class="notification" id="notification" role="alert" aria-live="assertive" hidden>
+      <span class="notification-icon">✅</span>
+      <span class="notification-message" id="notification-message">Session complete! Take a break.</span>
+      <button class="notification-dismiss" id="notification-dismiss" aria-label="Dismiss notification">✕</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Stay focused. One session at a time.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

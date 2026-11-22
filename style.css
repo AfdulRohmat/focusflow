@@ -1,0 +1,382 @@
+/* ============================================================
+   FocusFlow — style.css
+   Minimal, responsive Pomodoro UI
+   ============================================================ */
+
+/* ---- CSS Custom Properties --------------------------------- */
+:root {
+  --color-bg:        #f5f4f0;
+  --color-surface:   #ffffff;
+  --color-border:    #e2e0da;
+  --color-text:      #1a1a1a;
+  --color-muted:     #6b6b6b;
+  --color-accent:    #d95f3b;      /* warm tomato-red — Pomodoro signature */
+  --color-accent-dk: #b84a2a;
+
+  --radius-card:   20px;
+  --radius-btn:    10px;
+  --shadow-card:   0 4px 24px rgba(0, 0, 0, 0.08);
+
+  --font-sans: -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-timer: "Courier New", "Courier", monospace;
+}
+
+/* ---- Reset ------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Base -------------------------------------------------- */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+/* ---- Header ------------------------------------------------ */
+.app-header {
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.header-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logo-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+/* ---- Main -------------------------------------------------- */
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  padding: 2.5rem 1.25rem;
+}
+
+/* ---- Timer Card -------------------------------------------- */
+.timer-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ---- Mode Selector ----------------------------------------- */
+.mode-selector {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--color-bg);
+  border-radius: calc(var(--radius-btn) + 4px);
+  padding: 4px;
+  width: 100%;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 0.5rem 0.6rem;
+  border: none;
+  border-radius: var(--radius-btn);
+  background: transparent;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.mode-btn:hover:not(.active) {
+  background: var(--color-border);
+  color: var(--color-text);
+}
+
+.mode-btn.active {
+  background: var(--color-surface);
+  color: var(--color-accent);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10);
+}
+
+/* ---- Timer Display ----------------------------------------- */
+.timer-display {
+  line-height: 1;
+}
+
+.timer-time {
+  font-family: var(--font-timer);
+  font-size: clamp(4rem, 18vw, 6rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  display: block;
+}
+
+/* ---- Controls ---------------------------------------------- */
+.timer-controls {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.ctrl-btn {
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--radius-btn);
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s, transform 0.1s;
+}
+
+.ctrl-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Primary — Start */
+#btn-start {
+  background: var(--color-accent);
+  color: #fff;
+  min-width: 100px;
+}
+
+#btn-start:hover:not(:disabled) {
+  background: var(--color-accent-dk);
+}
+
+/* Secondary — Pause */
+.ctrl-btn--secondary {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.ctrl-btn--secondary:hover:not(:disabled) {
+  background: var(--color-border);
+}
+
+/* Ghost — Reset */
+.ctrl-btn--ghost {
+  background: transparent;
+  color: var(--color-muted);
+}
+
+.ctrl-btn--ghost:hover:not(:disabled) {
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* Disabled state */
+.ctrl-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+/* ---- Stats Section ----------------------------------------- */
+.stats-section {
+  width: 100%;
+  max-width: 420px;
+}
+
+.stats-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 0.85rem;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 1.1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Daily goal card spans full width */
+.stat-card--goal {
+  grid-column: 1 / -1;
+  align-items: stretch;
+  gap: 0.65rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.stat-goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-goal-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Progress bar */
+.progress-track {
+  height: 8px;
+  background: var(--color-bg);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--color-accent);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+/* ---- Footer ------------------------------------------------ */
+.app-footer {
+  padding: 1.25rem 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---- Responsive -------------------------------------------- */
+@media (max-width: 480px) {
+  .timer-card {
+    padding: 2rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .timer-controls {
+    flex-wrap: wrap;
+  }
+
+  .ctrl-btn {
+    flex: 1;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card--goal {
+    grid-column: 1;
+  }
+}
+
+/* ---- Notification ------------------------------------------ */
+/* Ensure the HTML `hidden` attribute wins over display:flex */
+.notification[hidden] {
+  display: none;
+}
+
+.notification {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--color-text);
+  color: #fff;
+  padding: 0.85rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  font-size: 0.9rem;
+  font-weight: 500;
+  max-width: calc(100vw - 2.5rem);
+  width: max-content;
+  z-index: 100;
+  animation: notif-in 0.25s ease;
+}
+
+@keyframes notif-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0);    }
+}
+
+.notification-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.notification-message {
+  flex: 1;
+}
+
+.notification-dismiss {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 0.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.notification-dismiss:hover {
+  color: #fff;
+}
